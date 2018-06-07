@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  dainaUrl:'https://powerful-stream-81254.herokuapp.com'
+  dainaUrl:'https://powerful-stream-81254.herokuapp.com',
+  nlpUrl:'http://192.168.1.17:6300/api/v0.1'
 };

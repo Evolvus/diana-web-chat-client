@@ -1,67 +1,85 @@
 <div class="main-content">
 
     <div class="container-fluid">
-        <div class="row">
-            <h4>Channels</h4>
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header facebook">
-                        <i class="fa fa-facebook-official"></i>
-                    </div>
-                    <div class="card-content">
-                        <p class="category">Facbook</p>
-                        <h3 class="title">{{fbSuccessCount}}/{{fbReqCount}}
-                            <small></small>
-                        </h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">date_range</i> Just Updated
+        <div class="row rowPadding">
+            <div class="col-md-12">
+                <div id="frame">
+                    <div class="content">
+                        <div class="contact-profile">
+                            <img src="assets/img/diana-small.jpg" alt="" />
+                            <p>DIANA</p>
+                            <div class="logo">
+                                <!-- <img src="assets/img/diana-small.jpg" alt="" /> -->
+                                <!-- <i class="fa fa-facebook" aria-hidden="true"></i>
+								<i class="fa fa-twitter" aria-hidden="true"></i>
+								 <i class="fa fa-instagram" aria-hidden="true"></i> -->
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="messages" #content style="overflow: scroll; height: xyz;">
+
+                            <ul *ngFor="let msg of messages">
+
+                                <li class="sent" *ngIf="msg.user==='diana'">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <p *ngIf="!msg.richMessage && msg.message"> {{msg.message}}</p>
+
+                                    <div *ngIf="msg.richMessage">
+
+                                        <div *ngFor="let m of msg.richMessage.displayText">
+                                            <p> {{m}}</p>
+                                        </div>
+
+                                    </div>
 
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-header round twitter" >
-                        <i class="fa fa-twitter"></i>
-                    </div>
-                    <div class="card-content">
-                        <p class="category">Twitter</p>
-                        <h3 class="title">{{twitterSuccessCount}}/{{twitterReqCount}}
-                            <small></small>
-                        </h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
+                                    <div *ngIf="msg.richMessage && msg.richMessage.images">
+                                        <div class="col-md-12" *ngFor="let img of msg.richMessage.images" style="word-wrap: break-word">
+                                            <a [href]="img.url" target="_blank">{{img.url}}</a>
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <div class="row chat_btns" *ngIf="msg.richMessage && msg.richMessage.buttons">
+                                        <div class="col-md-12" *ngFor="let btn of msg.richMessage.buttons">
+                                            <button class="btn btn-sm btn-primary" type="button" [value]="btn.value" (click)="btnClick(btn.value)">
+                                                {{btn.name}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="replies" *ngIf="msg.user==='user'">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <p> {{msg.message}} </p>
+                                </li>
+
+                                <!-- <div ng-show="msg.user==='user'">
+                                    <li class="sent">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <p> {{msg.message}} </p>
+                                    </li>
+                                </div>
+                                <div ng-show="msg.user==='diana'">
+                                    <li class="replies">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        <p> {{msg.message}} </p>
+                                    </li>
+                                </div> -->
+
+                            </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 disabled">
-                <div class="card card-stats">
-                    <div class="card-header round slack">
-                        <!-- <i class="fa fa-twitter"></i> -->
-                        <img class="img" src="assets/img/Slack_Icon.png" />
-                    </div>
-                    <div class="card-content">
-                        <p class="category">Slack</p>
-                        <h3 class="title">{{slackSuccessCount}}/{{slackReqCount}}
-                            <small></small>
-                        </h3>
-                    </div>
-                    <div class="card-footer">
-                        <div class="stats">
-                            <i class="material-icons">update</i> Service Disabled
+                        <div class="message-input">
+                            <div class="wrap">
+                                <input type="text" [(ngModel)]="text" placeholder="Write your message..." />
+                                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                                <button class="button" (click)="getQuery()">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
