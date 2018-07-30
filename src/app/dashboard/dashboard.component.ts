@@ -1,9 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { IntentService } from '../../services/intent.service';
 import { Message } from '../../models/message';
 import { Subscription } from 'rxjs/Subscription';
 import { Howl } from 'howler';
+import { NgxAutoScroll } from 'ngx-auto-scroll';
+
 
 
 @Component({
@@ -13,10 +15,12 @@ import { Howl } from 'howler';
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
+
   text = '';
   messages: Message[];
   subscription: Subscription;
-  @ViewChild('content') private myScrollContainer: ElementRef;
+
   sound: any;
   constructor(private intentService: IntentService) {
 
@@ -24,25 +28,23 @@ export class DashboardComponent implements OnInit {
       src: ['assets/tone.mp3'],
       html5: true
     });
-   }
+  }
 
   ngOnInit() {
     this.messages = [];
     this.subscription = this.intentService.intentsChanged.subscribe((msg: Message) => {
       this.messages.push(msg);
       this.sound.play();
-      this.scrollToBottom();
     });
   }
 
   getQuery() {
     if (this.text.trim() !== '') {
       const msg = new Message(this.text.trim(), null, 'user');
-      this.sound.play();
+      //this.sound.play();
       this.messages.push(msg);
       this.intentService.query(this.text);
       this.text = '';
-      this.scrollToBottom();
     }
   }
 
@@ -51,10 +53,15 @@ export class DashboardComponent implements OnInit {
     this.getQuery();
   }
 
-  scrollToBottom(): void {
-    try {
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch (err) { }
+  public forceScrollDown(): void {
+    this.ngxAutoScroll.forceScrollDown();
   }
+
+  onKey(event: any) { // without type info
+    if (event.keyCode === 13) {
+      this.getQuery();
+    }
+  }
+
 
 }

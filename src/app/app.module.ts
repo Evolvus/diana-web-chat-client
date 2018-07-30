@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { IntentService } from 'services/intent.service';
-
+import { NgxAutoScrollModule } from "ngx-auto-scroll";
 
 
 @NgModule({
@@ -27,6 +27,7 @@ import { IntentService } from 'services/intent.service';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    NgxAutoScrollModule
   ],
   providers: [IntentService],
   bootstrap: [AppComponent]

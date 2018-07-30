@@ -15,7 +15,7 @@
 								 <i class="fa fa-instagram" aria-hidden="true"></i> -->
                             </div>
                         </div>
-                        <div class="messages" #content style="overflow: scroll; height: xyz;">
+                        <div class="messages" ngx-auto-scroll lock-y-offset="10" observe-attributes>
 
                             <ul *ngFor="let msg of messages">
 
@@ -69,9 +69,9 @@
                         </div>
                         <div class="message-input">
                             <div class="wrap">
-                                <input type="text" [(ngModel)]="text" placeholder="Write your message..." />
+                                <input type="text" [(ngModel)]="text" placeholder="Write your message..."  (keyup)="onKey($event)"/>
                                 <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
-                                <button class="button" (click)="getQuery()">
+                                <button class="submit" (click)="getQuery()">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                 </button>
                             </div>
